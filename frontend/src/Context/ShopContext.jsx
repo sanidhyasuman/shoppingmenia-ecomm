@@ -11,7 +11,7 @@ const getDefaultCart = () => {
     return cart;
 }
 const ShopContextProvider = (props) => {
-    const url = 'https://shoppingmenia-ecomm.onrender.com';
+    const url = 'http://localhost:4000';
     const [all_product, setAllProducts] = useState([]);
     const [cartItems, setCartItems] = useState(getDefaultCart());
 

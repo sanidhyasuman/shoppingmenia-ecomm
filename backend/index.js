@@ -1,7 +1,7 @@
-const port = process.env.PORT || 4000;
+const port = 4000;
 
 const express = require('express');
-
+require('dotenv').config();
 const app = express();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -15,7 +15,12 @@ app.use(express.json());
 app.use(cors());
 
 // Database Connection with Mongodb Database
-mongoose.connect("mongodb+srv://sanidhyasuman23:sannu@cluster0.832ovjn.mongodb.net/e-commerce");
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+    .then(() => console.log('Database connected successfully'))
+    .catch(err => console.log('Database connection error:', err));
 
 //Api Creation 
 
@@ -37,6 +42,7 @@ app.use('/images', express.static('upload/images'))
 app.post("/upload", upload.single('product'), (req, res) => {
     res.json({
         success: 1,
+        // image_url: `http://localhost:${port}/images/${req.file.filename}`
         image_url: `https://shoppingmenia-ecomm.onrender.com/images/${req.file.filename}`
     })
 })
@@ -171,7 +177,7 @@ app.post('/removefromcart', fetchUser, async (req, res) => {
 
 //creating endpoint to get cartdata 
 app.post('/getcart', fetchUser, async (req, res) => {
-    console.log("getcart");
+    console.log("getcart"); 
     let userData = await Users.findOne({_id: req.user.id});
     res.json(userData.cartData);
 })
