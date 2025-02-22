@@ -9,7 +9,7 @@ const LoginSignup = () => {
   const { url } = useContext(ShopContext)
   const [state, setState] = useState("Login")
 
-  // ✅ Validation Schema using Yup
+  // Validation Schema using Yup
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
@@ -28,7 +28,7 @@ const LoginSignup = () => {
   const onSubmit = async (data) => {
     console.log(state, "function called", data)
 
-    let endpoint = state === "Login" ? '/login' : '/signup'
+    let endpoint = state === "Login" ? '/user/login' : '/user/signup'
     let response = await fetch(url + endpoint, {
       method: 'POST',
       headers: {

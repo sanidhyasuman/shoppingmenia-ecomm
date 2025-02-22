@@ -16,12 +16,12 @@ const ShopContextProvider = (props) => {
     const [cartItems, setCartItems] = useState(getDefaultCart());
 
     useEffect(() =>{
-        fetch(url +'/allproducts')
+        fetch(url +'/product/allproducts')
         .then((response)=> response.json())
         .then((data) => setAllProducts(data))
         
         if(localStorage.getItem('auth_token')){
-            fetch(url + '/getcart', {
+            fetch(url + '/user/getcart', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/form-data',
@@ -39,7 +39,7 @@ const ShopContextProvider = (props) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
         // console.log(cartItems);
         if(localStorage.getItem('auth_token')){
-            fetch(url + '/addtocart', {
+            fetch(url + '/user/addtocart', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/form-data',
@@ -52,12 +52,12 @@ const ShopContextProvider = (props) => {
             .then((data) => console.log(data))
             .catch((error) => console.error('Error adding to cart:', error));
         }
-        
+
     }
     const removeFromCart = (itemId) => {
         setCartItems((prev) => ({...prev,[itemId]:prev[itemId]-1}))
         if(localStorage.getItem('auth_token')){
-            fetch(url + '/removefromcart', {
+            fetch(url + '/user/removefromcart', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/form-data',

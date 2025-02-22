@@ -7,7 +7,7 @@ const Popular = () => {
     const { url } = useContext(ShopContext);
     const [popularProducts, setPopularProducts] = useState([]);
     useEffect(() => {
-        fetch(url + '/popularinwomen')
+        fetch(url + '/product/popularinwomen')
         .then((response) => response.json())
         .then((data) => setPopularProducts(data))
     },[])
@@ -15,7 +15,6 @@ const Popular = () => {
         <div className='popular'>
             <h1>POPULAR IN WOMEN</h1>
             <hr />
-        
             <div className='popular-item'>
                 {popularProducts.map((item, i) => {
                     return <Item key={i} id={item.id} name={item.name} image={item.image} new_price={item.old_price} old_price={item.old_price} />

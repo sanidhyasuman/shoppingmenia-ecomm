@@ -8,7 +8,7 @@ const NewCollections = () => {
     const [new_collection, setNew_collection] = useState([]);
     const { url } = useContext(ShopContext);
     useEffect(() => {
-        fetch(url + '/newcollections')
+        fetch(url + '/product/newcollections')
         .then((response)=>response.json())
         .then((data)=>setNew_collection(data))
     },[]);
